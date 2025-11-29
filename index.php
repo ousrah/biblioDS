@@ -7,10 +7,11 @@ require_once './layout/header.php';
 
 // 3. Inclure les parties du contenu
 // Note: Ces fichiers seront créés ensuite
-require_once './partials/partie_collections.php';
+
 require_once './partials/partie_deployment.php';
 require_once './partials/partie_documentation.php';
 require_once './partials/partie_1.php';
+require_once './partials/partie_collections.php';
 require_once './partials/partie_2.php';
 
 
