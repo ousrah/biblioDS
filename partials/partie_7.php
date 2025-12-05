@@ -255,3 +255,189 @@
         </details>
     </div>
 </section>
+
+
+
+<section id="pandas-indexing" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-indigo-700">Chapitre 4 : Indexation Avancée et Sélection</h3>
+    <p class="text-gray-700 mb-6">
+        Pandas offre des méthodes puissantes pour accéder aux données, notamment pour gérer la confusion entre les indices entiers (position) et les étiquettes (labels).
+    </p>
+
+    <div class="mb-8">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1. Les Indexeurs loc et iloc</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-blue-50 p-4 rounded border border-blue-100">
+                <h5 class="font-bold text-blue-900 mb-2">loc (Label-based)</h5>
+                <p class="text-sm text-blue-800">Utilise les <strong>étiquettes</strong> (noms) des lignes et des colonnes. La borne de fin est incluse.</p>
+            </div>
+            <div class="bg-indigo-50 p-4 rounded border border-indigo-100">
+                <h5 class="font-bold text-indigo-900 mb-2">iloc (Integer-based)</h5>
+                <p class="text-sm text-indigo-800">Utilise la <strong>position entière</strong> (0, 1, 2...) comme les listes Python. La borne de fin est exclue.</p>
+            </div>
+        </div>
+
+        <div class="code-block-wrapper">
+            <pre class="code-block"><code class="language-python"><span class="py-variable">data</span> = <span class="py-variable">pd</span>.<span class="py-function">Series</span>([<span class="py-string">'a'</span>, <span class="py-string">'b'</span>, <span class="py-string">'c'</span>], <span class="py-variable">index</span>=[1, 3, 5])
+
+<span class="py-comment"># Utilisation de loc (cherche l'index nommé 1)</span>
+<span class="py-builtin">print</span>(<span class="py-variable">data</span>.<span class="py-variable">loc</span>[1])  <span class="py-comment"># 'a'</span>
+
+<span class="py-comment"># Utilisation de iloc (cherche la position 1, soit la 2ème valeur)</span>
+<span class="py-builtin">print</span>(<span class="py-variable">data</span>.<span class="py-variable">iloc</span>[1]) <span class="py-comment"># 'b'</span></code></pre>
+            <button class="copy-btn">Copier</button>
+        </div>
+    </div>
+
+    <div class="mb-8">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2. Masquage Booléen (Filtrage)</h4>
+        <p class="text-gray-700 mb-4">
+            Permet de sélectionner des données en fonction d'une condition logique.
+        </p>
+        <div class="code-block-wrapper">
+            <pre class="code-block"><code class="language-python"><span class="py-comment"># Sélectionner les villes avec une densité > 100</span>
+<span class="py-variable">filtre</span> = <span class="py-variable">data</span>[<span class="py-variable">data</span>.<span class="py-variable">densité</span> > 100]</code></pre>
+            <button class="copy-btn">Copier</button>
+        </div>
+    </div>
+</section>
+
+<section id="pandas-cleaning" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-indigo-700">Chapitre 5 : Nettoyage des Données</h3>
+    <p class="text-gray-700 mb-6">
+        Les données réelles contiennent souvent des erreurs ou des absences. Pandas traite <code>None</code> et <code>NaN</code> comme des valeurs manquantes.
+    </p>
+
+    <div class="mb-8">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1. Gestion des Valeurs Manquantes (NaN)</h4>
+        <ul class="list-disc ml-6 text-gray-700 space-y-2 mb-4">
+            <li><strong>isnull() / notnull()</strong> : Détecte les valeurs manquantes.</li>
+            <li><strong>dropna()</strong> : Supprime les lignes ou colonnes contenant des NaN.</li>
+            <li><strong>fillna()</strong> : Remplace les NaN par une valeur (ex: 0 ou la moyenne).</li>
+        </ul>
+
+        <div class="code-block-wrapper">
+            <pre class="code-block"><code class="language-python"><span class="py-variable">df</span> = <span class="py-variable">pd</span>.<span class="py-function">DataFrame</span>([[1, <span class="py-variable">np</span>.<span class="py-variable">nan</span>, 2], [2, 3, 5]])
+
+<span class="py-comment"># Supprimer les lignes avec NaN</span>
+<span class="py-builtin">print</span>(<span class="py-variable">df</span>.<span class="py-function">dropna</span>())
+
+<span class="py-comment"># Remplacer NaN par 0</span>
+<span class="py-builtin">print</span>(<span class="py-variable">df</span>.<span class="py-function">fillna</span>(0))</code></pre>
+            <button class="copy-btn">Copier</button>
+        </div>
+    </div>
+
+    <div class="mb-8">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2. Gestion des Doublons</h4>
+        <p class="text-gray-700 mb-4">
+            Pour nettoyer un jeu de données, il est crucial d'identifier et supprimer les lignes dupliquées.
+        </p>
+        <div class="code-block-wrapper">
+            <pre class="code-block"><code class="language-python"><span class="py-comment"># Identifier les doublons</span>
+<span class="py-variable">doublons</span> = <span class="py-variable">df</span>.<span class="py-function">duplicated</span>()
+
+<span class="py-comment"># Supprimer les doublons</span>
+<span class="py-variable">df</span>.<span class="py-function">drop_duplicates</span>(<span class="py-variable">inplace</span>=<span class="py-builtin">True</span>)</code></pre>
+            <button class="copy-btn">Copier</button>
+        </div>
+    </div>
+</section>
+
+<section id="pandas-merging" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-indigo-700">Chapitre 6 : Combinaison de DataFrames</h3>
+    
+    <div class="mb-8">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1. Concaténation</h4>
+        <p class="text-gray-700 mb-4">
+            La fonction <code>pd.concat()</code> permet d'empiler des DataFrames les uns sur les autres ou côte à côte.
+        </p>
+        <div class="code-block-wrapper">
+            <pre class="code-block"><code class="language-python"><span class="py-comment"># Empiler df1 et df2 verticalement</span>
+<span class="py-variable">resultat</span> = <span class="py-variable">pd</span>.<span class="py-function">concat</span>([<span class="py-variable">df1</span>, <span class="py-variable">df2</span>])</code></pre>
+            <button class="copy-btn">Copier</button>
+        </div>
+    </div>
+
+    <div class="mb-8">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2. Fusion (Merging)</h4>
+        <p class="text-gray-700 mb-4">
+            La méthode <code>pd.merge()</code> permet de réaliser des jointures de style SQL (Inner, Left, Right, Outer).
+        </p>
+        
+        <div class="overflow-x-auto bg-white rounded-lg shadow-sm border mb-6">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type (how)</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Description</th></tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 text-sm">
+                    <tr><td class="px-6 py-3 font-mono text-indigo-600">'inner'</td><td class="px-6 py-3">Intersection des clés (par défaut).</td></tr>
+                    <tr><td class="px-6 py-3 font-mono text-indigo-600">'left'</td><td class="px-6 py-3">Garde toutes les lignes de gauche.</td></tr>
+                    <tr><td class="px-6 py-3 font-mono text-indigo-600">'outer'</td><td class="px-6 py-3">Union complète des clés.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="code-block-wrapper">
+            <pre class="code-block"><code class="language-python"><span class="py-comment"># Jointure sur la colonne 'id'</span>
+<span class="py-variable">df</span> = <span class="py-variable">pd</span>.<span class="py-function">merge</span>(<span class="py-variable">df_a</span>, <span class="py-variable">df_b</span>, <span class="py-variable">on</span>=<span class="py-string">'id'</span>, <span class="py-variable">how</span>=<span class="py-string">'inner'</span>)</code></pre>
+            <button class="copy-btn">Copier</button>
+        </div>
+    </div>
+</section>
+
+<section id="pandas-stats" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-indigo-700">Chapitre 7 : Tri et Statistiques</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div>
+            <h4 class="text-xl font-bold text-gray-800 mb-4">Tri des Données</h4>
+            <p class="text-gray-700 mb-4">On peut trier selon l'index ou selon les valeurs.</p>
+            <div class="code-block-wrapper">
+                <pre class="code-block"><code class="language-python"><span class="py-comment"># Trier par valeurs d'une colonne</span>
+<span class="py-variable">data</span>.<span class="py-function">sort_values</span>(<span class="py-variable">by</span>=<span class="py-string">'population'</span>, <span class="py-variable">ascending</span>=<span class="py-builtin">False</span>)</code></pre>
+            </div>
+        </div>
+        <div>
+            <h4 class="text-xl font-bold text-gray-800 mb-4">Statistiques Descriptives</h4>
+            <p class="text-gray-700 mb-4">Pandas offre des fonctions pour résumer rapidement les données.</p>
+            <div class="code-block-wrapper">
+                <pre class="code-block"><code class="language-python"><span class="py-comment"># Résumé statistique (moyenne, min, max...)</span>
+<span class="py-variable">df</span>.<span class="py-function">describe</span>()
+
+<span class="py-comment"># Compter les valeurs uniques</span>
+<span class="py-variable">df</span>[<span class="py-string">'colonne'</span>].<span class="py-function">value_counts</span>()</code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="pandas-io" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-indigo-700">Chapitre 8 : Lecture et Écriture de Fichiers</h3>
+    <p class="text-gray-700 mb-6">
+        Pandas permet de charger et sauvegarder des données facilement depuis des formats standards comme CSV ou JSON.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-gray-50 p-6 rounded-lg border">
+            <h5 class="font-bold text-gray-800 mb-3">Format CSV</h5>
+            <div class="code-block-wrapper">
+                <pre class="code-block"><code class="language-python"><span class="py-comment"># Lecture</span>
+<span class="py-variable">df</span> = <span class="py-variable">pd</span>.<span class="py-function">read_csv</span>(<span class="py-string">'data.csv'</span>)
+
+<span class="py-comment"># Écriture (sans l'index)</span>
+<span class="py-variable">df</span>.<span class="py-function">to_csv</span>(<span class="py-string">'sortie.csv'</span>, <span class="py-variable">index</span>=<span class="py-builtin">False</span>)</code></pre>
+            </div>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg border">
+            <h5 class="font-bold text-gray-800 mb-3">Format JSON</h5>
+            <div class="code-block-wrapper">
+                <pre class="code-block"><code class="language-python"><span class="py-comment"># Lecture</span>
+<span class="py-variable">df</span> = <span class="py-variable">pd</span>.<span class="py-function">read_json</span>(<span class="py-string">'data.json'</span>)
+
+<span class="py-comment"># Écriture</span>
+<span class="py-variable">df</span>.<span class="py-function">to_json</span>(<span class="py-string">'sortie.json'</span>)</code></pre>
+            </div>
+        </div>
+    </div>
+</section>
